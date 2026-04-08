@@ -2,8 +2,8 @@ name: Daily Paper Literature Sync
 
 on:
   schedule:
-    # 30分 10时 (UTC) -> 对应北京时间 18:30
-    - cron: '30 10 * * *'
+    # 30分 12时 (UTC) -> 对应北京时间 20:30
+    - cron: '30 12 * * *'
   # 允许手动触发测试
   workflow_dispatch: 
 
