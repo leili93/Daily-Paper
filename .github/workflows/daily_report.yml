@@ -1,0 +1,35 @@
+name: Daily Cancer Literature Sync
+
+on:
+  schedule:
+    # 30分 10时 (UTC) -> 对应北京时间 18:30
+    - cron: '30 10 * * *'
+  # 允许手动触发测试
+  workflow_dispatch: 
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python 3.9
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+          cache: 'pip' 
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          # 更改安装指令，从指定的清单文件中批量读取并安装依赖
+          pip install -r requirements.txt
+
+      - name: Execute Literature Sync Script
+        env:
+          EMAIL_USER: ${{ secrets.EMAIL_USER }}
+          EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
+          EMAIL_RECEIVER: ${{ secrets.EMAIL_RECEIVER }}
+        run: python main.py
