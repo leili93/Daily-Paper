@@ -1,4 +1,4 @@
-name: Daily Cancer Literature Sync
+name: Daily Paper Literature Sync
 
 on:
   schedule:
